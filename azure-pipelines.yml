@@ -20,6 +20,6 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      az deployment group create --resource-group $(rg) --template-file ./twoStorageAccounts.json --parameters firstStorageAccountName=pipelineFirst secondStorageAccountName=pipelineSecond
+      az deployment group create --resource-group $(rg) --template-file ./twoStorageAccounts.json --parameters firstStorageAccountName=pipelinefirst secondStorageAccountName=pipelinesecond
       az deployment group create --resource-group $(rg) --template-file ./linuxVM.json --parameters vmName=pipelineVM adminUsername=hanilzhome adminPasswordOrKey='P@ssword123!'
 
