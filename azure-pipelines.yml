@@ -9,11 +9,17 @@ trigger:
 pool:
   name: Default  # your self-hosted agent
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+variables:
+  rg: 'home-assignment'
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'myConn'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az deployment group create --resource-group $(rg) --template-file ./twoStorageAccounts.json --parameters firstStorageAccountName=pipelineFirst secondStorageAccountName=pipelineSecond
+      az deployment group create --resource-group $(rg) --template-file ./linuxVM.json --parameters vmName=pipelineVM adminUsername=hanilzhome adminPasswordOrKey='P@ssword123!'
+
